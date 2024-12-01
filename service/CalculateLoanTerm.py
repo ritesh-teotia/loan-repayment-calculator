@@ -112,24 +112,24 @@ def write_loan_data_to_csv(file_name, principal, loan_data, loan_tenure_years, e
         csvwriter.writerow(['Total Interest Paid:', format_number(round(total_interest, 2))])
 
 
-def main():
-    principal = 5500000  # Principal amount
-    annual_interest_rate = 8.5  # Annual interest rate
-    loan_tenure_years = 25  # Loan tenure in years
-    extra_emi_percent = 5  # Extra EMI percentage
-    lump_sums = [(3,3000000)] # Multiple lump sums (year, amount)
-    pay_extra_emi = True # 13 EMIs instead of 12
+# def main():
+#     principal = 5500000  # Principal amount
+#     annual_interest_rate = 8.5  # Annual interest rate
+#     loan_tenure_years = 25  # Loan tenure in years
+#     extra_emi_percent = 5  # Extra EMI percentage
+#     lump_sums = [(3,3000000)] # Multiple lump sums (year, amount)
+#     pay_extra_emi = True # 13 EMIs instead of 12
 
-    # Calculate loan repayment data
-    loan_data, total_money_saved = calculate_loan_term(principal, annual_interest_rate, loan_tenure_years,
-                                                       extra_emi_percent, lump_sums, pay_extra_emi)
+#     # Calculate loan repayment data
+#     loan_data, total_money_saved = calculate_loan_term(principal, annual_interest_rate, loan_tenure_years,
+#                                                        extra_emi_percent, lump_sums, pay_extra_emi)
 
-    # Write loan data to CSV file
-    file_name = 'loan_repayment_data.csv'
-    write_loan_data_to_csv(file_name, principal, loan_data, loan_tenure_years, extra_emi_percent, total_money_saved)
+#     # Write loan data to CSV file
+#     file_name = 'loan_repayment_data.csv'
+#     write_loan_data_to_csv(file_name, principal, loan_data, loan_tenure_years, extra_emi_percent, total_money_saved)
 
-    print(f"Loan repayment data has been saved to '{file_name}'")
+#     print(f"Loan repayment data has been saved to '{file_name}'")
 
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
