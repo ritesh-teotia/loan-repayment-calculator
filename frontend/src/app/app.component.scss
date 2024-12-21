@@ -1,17 +1,16 @@
 .container {
-    display: flex;
-    flex-direction: row;
-    height: 100vh;
-  }
-  
-  .left-panel {
-    width: 40%;
-    padding: 20px;
-    border-right: 1px solid #ddd;
-    background-color: #f8f9fa;
-  }
-  
-  .right-panel {
-    width: 60%;
-    padding: 20px;
-  }
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.left-panel {
+  width: 40%;
+  padding: 20px;
+}
+
+.right-panel {
+  width: 60%;
+  padding: 20px;
+}

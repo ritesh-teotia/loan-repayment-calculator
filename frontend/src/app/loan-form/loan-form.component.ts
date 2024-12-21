@@ -10,7 +10,7 @@ interface LumpSum {
 @Component({
   selector: 'app-loan-form',
   standalone: true,
-  imports:[CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './loan-form.component.html',
   styleUrls: ['./loan-form.component.scss']
 })
@@ -40,7 +40,7 @@ export class LoanFormComponent {
   }
 
   addLumpSum(): void {
-    this.loanDetails.lump_sums.push({ year: null, amount: null }); 
+    this.loanDetails.lump_sums.push({ year: null, amount: null });
   }
 
   removeLumpSum(index: number): void {
