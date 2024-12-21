@@ -1,0 +1,17 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+  }
+  
+  .left-panel {
+    width: 40%; /* Adjust as needed */
+    padding: 20px;
+    border-right: 1px solid #ddd;
+    background-color: #f8f9fa;
+  }
+  
+  .right-panel {
+    width: 60%; /* Adjust as needed */
+    padding: 20px;
+  }

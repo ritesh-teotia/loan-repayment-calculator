@@ -1,0 +1,119 @@
+<form #loanForm="ngForm" (ngSubmit)="onSubmit()" class="form-container">
+  <div class="form-group">
+    <label for="principal">Principal Amount</label>
+    <div class="slider-container">
+      <input
+        type="range"
+        id="principal"
+        min="100000"
+        max="100000000"
+        step="100000"
+        [(ngModel)]="loanDetails.principal"
+        name="principal"
+        class="slider"
+      />
+      <input
+        type="text"
+        [value]="formattedPrincipal"
+        (input)="onPrincipalChange($event)"
+        class="slider-value"
+      />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="rate">Annual Interest Rate (%)</label>
+    <div class="slider-container">
+      <input
+        type="range"
+        id="rate"
+        min="0.5"
+        max="15"
+        step="0.1"
+        [(ngModel)]="loanDetails.rate"
+        name="rate"
+        class="slider"
+      />
+      <input
+        type="number"
+        [(ngModel)]="loanDetails.rate"
+        step="0.1"
+        name="rateValue"
+        class="slider-value"
+      />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="time">Loan Tenure (Years)</label>
+    <div class="slider-container">
+      <input
+        type="range"
+        id="time"
+        min="1"
+        max="30"
+        step="1"
+        [(ngModel)]="loanDetails.time"
+        name="time"
+        class="slider"
+      />
+      <input
+        type="number"
+        [(ngModel)]="loanDetails.time"
+        step="1"
+        name="timeValue"
+        class="slider-value"
+      />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="extraEmiPercent">Extra EMI Percentage</label>
+    <div class="slider-container">
+      <input
+        type="range"
+        id="extraEmiPercent"
+        min="0"
+        max="20"
+        step="1"
+        [(ngModel)]="loanDetails.extra_emi_percent"
+        name="extraEmiPercent"
+        class="slider"
+      />
+      <input
+        type="number"
+        [(ngModel)]="loanDetails.extra_emi_percent"
+        step="1"
+        name="extraEmiPercentValue"
+        class="slider-value"
+      />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="lumpSums">Lump Sum Payments (Year, Amount)</label>
+    <input
+      type="text"
+      id="lumpSums"
+      name="lumpSums"
+      class="form-control"
+      placeholder="e.g., 3,3000000"
+      [(ngModel)]="loanDetails.lump_sums"
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="payExtraEmi">Pay Extra EMI</label>
+    <select
+      id="payExtraEmi"
+      name="payExtraEmi"
+      class="form-control"
+      [(ngModel)]="loanDetails.pay_extra_emi"
+    >
+      <option [value]="true">Yes</option>
+      <option [value]="false">No</option>
+    </select>
+  </div>
+
+  <button type="submit" class="btn btn-primary btn-green">Calculate</button>
+</form>
