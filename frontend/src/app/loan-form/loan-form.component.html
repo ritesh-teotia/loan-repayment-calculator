@@ -91,15 +91,29 @@
   </div>
 
   <div class="form-group">
-    <label for="lumpSums">Lump Sum Payments (Year, Amount)</label>
-    <input
-      type="text"
-      id="lumpSums"
-      name="lumpSums"
-      class="form-control"
-      placeholder="e.g., 3,3000000"
-      [(ngModel)]="loanDetails.lump_sums"
-    />
+    <label for="lumpSums">Lump Sum Payments</label>
+    <div *ngFor="let lumpSum of loanDetails.lump_sums; let i = index" class="lump-sum-entry">
+      <input
+        type="number"
+        placeholder="Year"
+        [(ngModel)]="lumpSum.year"
+        name="lumpSumYear{{i}}"
+        class="form-control"
+        [min]="0" 
+        style="width: 45%; display: inline-block; margin-right: 5%;"
+      />
+      <input
+        type="number"
+        placeholder="Amount"
+        [(ngModel)]="lumpSum.amount"
+        name="lumpSumAmount{{i}}"
+        class="form-control"
+        [min]="0" 
+        style="width: 45%; display: inline-block;"
+      />
+      <button type="button" (click)="removeLumpSum(i)" class="btn btn-danger">Remove</button>
+    </div>
+    <button type="button" (click)="addLumpSum()" class="btn btn-secondary">Add Lump Sum</button>
   </div>
 
   <div class="form-group">

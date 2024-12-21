@@ -1,20 +1,27 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+
+interface LumpSum {
+  year: number | null;
+  amount: number | null;
+}
 
 @Component({
   selector: 'app-loan-form',
   standalone: true,
-  imports:[FormsModule],
+  imports:[CommonModule, FormsModule],
   templateUrl: './loan-form.component.html',
   styleUrls: ['./loan-form.component.scss']
 })
+
 export class LoanFormComponent {
   loanDetails = {
     principal: 500000,
     rate: 8.5,
     time: 20,
     extra_emi_percent: 5,
-    lump_sums: '',
+    lump_sums: [] as LumpSum[],
     pay_extra_emi: false
   };
 
@@ -32,7 +39,24 @@ export class LoanFormComponent {
     }
   }
 
+  addLumpSum(): void {
+    this.loanDetails.lump_sums.push({ year: null, amount: null }); 
+  }
+
+  removeLumpSum(index: number): void {
+    this.loanDetails.lump_sums.splice(index, 1);
+  }
+
   onSubmit(): void {
-    console.log('Loan Details:', this.loanDetails);
+    const transformedLumpSums = this.loanDetails.lump_sums
+      .filter(ls => ls.year !== null && ls.amount !== null)
+      .map(ls => [ls.year, ls.amount]);
+
+    const loanDetailsToSubmit = {
+      ...this.loanDetails,
+      lump_sums: transformedLumpSums
+    };
+
+    console.log('Loan Details:', loanDetailsToSubmit);
   }
 }
