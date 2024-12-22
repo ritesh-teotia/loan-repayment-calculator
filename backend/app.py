@@ -1,12 +1,14 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from service.CalculateLoanTerm import calculate_loan_term
 
 app = Flask(__name__)
+CORS(app)  # This enables CORS for all routes and origins
 
 @app.route('/calculate-loan', methods=['POST'])
 def calculate_loan():
     data = request.json
-    result, total_money_saved = calculate_loan_term(
+    result, total_money_saved, total_interest_paid, total_principal_paid = calculate_loan_term(
         data['principal'],
         data['rate'],
         data['time'],
@@ -28,8 +30,9 @@ def calculate_loan():
     
     return jsonify({
         "loan_data": structured_data,
-        "total_money_saved": round(total_money_saved, 2)
+        "total_money_saved": round(total_money_saved, 2),
+        "total_interest_paid": round(total_interest_paid, 2),
+        "total_principal_paid": round(total_principal_paid, 2)
     })
-
 if __name__ == "__main__":
     app.run(debug=True)
