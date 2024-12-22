@@ -1,0 +1,33 @@
+<div class="loan-summary">
+  <h3>Loan Summary</h3>
+  <p><strong>Original Tenure:</strong> {{ originalTenure }} years</p>
+  <p><strong>Optimized Tenure:</strong> {{ repaymentYears }} years and {{ repaymentMonths }} months</p>
+</div>
+<div class="chart-container">
+    <h3>Comparison: Normal vs Optimized Payments</h3>
+    <canvas baseChart
+      [data]="barChartData"
+      [options]="barChartOptions"
+      [type]="'bar'"
+      [legend]="true"
+      [plugins]="[]">
+    </canvas>
+  
+    <h3>Proportion of Principal vs Interest</h3>
+    <canvas baseChart
+      [data]="pieChartData"
+      [options]="pieChartOptions"
+      [type]="'pie'"
+      [legend]="true"
+      class="pie-chart">
+      >
+    </canvas>
+  
+    <h3>Yearly EMI Payments Over Time</h3>
+    <canvas baseChart
+      [data]="lineChartData"
+      [options]="lineChartOptions"
+      [type]="'line'"
+      [legend]="true">
+    </canvas>
+  </div>
