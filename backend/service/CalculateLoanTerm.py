@@ -30,15 +30,14 @@ def calculate_loan_term(principal, annual_interest_rate, loan_tenure_years, extr
         total_interest_paid += interest_payment
         total_principal_paid += principal_payment
 
+    if(pay_extra_emi):
+        total_payment += emi
+        total_principal_paid += emi
+        principal -= emi
+
     year_payment = total_payment
 
-    if(pay_extra_emi):
-        principal -= emi
-        year_payment += emi
-        total_principal_paid += emi
-
     data.append([format_number(round(emi, 2)),
-                 format_number(round(emi, 2)),
                  format_number(round(year_payment, 2))])
 
     # Increase EMI by given percentage each year from the second year onwards
@@ -59,9 +58,11 @@ def calculate_loan_term(principal, annual_interest_rate, loan_tenure_years, extr
         year_payment = (emi_with_extra * 12) + extra_payment
         
         if(pay_extra_emi):
+            total_payment += emi_with_extra
+            total_principal_paid += emi_with_extra
             principal -= emi_with_extra
             year_payment += emi_with_extra
-            total_principal_paid += emi_with_extra
+
         current_month = 0
         
         for _ in range(12):
@@ -79,17 +80,15 @@ def calculate_loan_term(principal, annual_interest_rate, loan_tenure_years, extr
                 years = total_months // 12
                 months = total_months % 12
 
-                data.append([format_number(round(emi, 2)),
-                             format_number(round(emi_with_extra, 2)),
+                data.append([format_number(round(emi_with_extra, 2)),
                              format_number(round(year_payment, 2)),
                              years,
                              months])
                 
                 total_money_saved = (emi * n) - total_payment  # Calculate total money saved
-                return data, max(total_money_saved, 0), total_interest_paid, (total_principal_paid - abs(principal)), loan_tenure_years
-        data.append([format_number(round(emi, 2)),
-                     format_number(round(emi_with_extra, 2)),
+                return data, emi, max(total_money_saved, 0), (total_interest_paid + abs(principal)), (total_principal_paid - abs(principal)), loan_tenure_years
+        data.append([format_number(round(emi_with_extra, 2)),
                      format_number(round(year_payment, 2))])
 
     total_money_saved = (emi * n) - total_payment  # Calculate total money saved
-    return data, max(total_money_saved, 0), total_interest_paid, (total_principal_paid - abs(principal)), loan_tenure_years
+    return data, emi, max(total_money_saved, 0), (total_interest_paid + abs(principal)), (total_principal_paid - abs(principal)), loan_tenure_years

@@ -8,7 +8,7 @@ CORS(app)  # This enables CORS for all routes and origins
 @app.route('/calculate-loan', methods=['POST'])
 def calculate_loan():
     data = request.json
-    result, total_money_saved, total_interest_paid, total_principal_paid, loan_tenure_years = calculate_loan_term(
+    result, normal_emi, total_money_saved, total_interest_paid, total_principal_paid, loan_tenure_years = calculate_loan_term(
         data['principal'],
         data['rate'],
         data['time'],
@@ -21,15 +21,15 @@ def calculate_loan():
     for index, row in enumerate(result):
         structured_data.append({
             "year": index + 1,
-            "normal_emi": float(row[0].replace(",", "")),
-            "extra_emi": float(row[1].replace(",", "")),
-            "yearly_payment": float(row[2].replace(",", "")),
-            "repayment_years": row[3] if len(row) > 3 else None,
-            "repayment_months": row[4] if len(row) > 4 else None
+            "extra_emi": float(row[0].replace(",", "")),
+            "yearly_payment": float(row[1].replace(",", "")),
+            "repayment_years": row[2] if len(row) > 2 else None,
+            "repayment_months": row[3] if len(row) > 3 else None
         })
     
     return jsonify({
         "loan_data": structured_data,
+        "normal_emi": normal_emi,
         "total_money_saved": round(total_money_saved, 2),
         "total_interest_paid": round(total_interest_paid, 2),
         "total_principal_paid": round(total_principal_paid, 2),
