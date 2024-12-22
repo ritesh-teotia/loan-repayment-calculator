@@ -54,6 +54,10 @@ export class LoanFormComponent {
     this.loanDetails.lump_sums.splice(index, 1);
   }
 
+  onPayExtraEmiChange(value: string): void {
+    this.loanDetails.pay_extra_emi = value === 'true'; 
+  }
+
   onSubmit(): void {
     const transformedLumpSums = this.loanDetails.lump_sums
       .filter(ls => ls.year !== null && ls.amount !== null)
@@ -64,11 +68,8 @@ export class LoanFormComponent {
         lump_sums: transformedLumpSums
       };
   
-    console.log('Payload:', payload);
-
     this.http.post(this.apiUrl, payload).subscribe({
       next: (response: any) => {
-        console.log('API Response:', response);
         this.formSubmit.emit(response);
       },
       error: (error: any) => {

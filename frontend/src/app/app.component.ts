@@ -14,6 +14,6 @@ export class AppComponent {
   chartData: any = null;
 
   onLoanFormSubmit(data: any): void {
-    this.chartData = data;
+    this.chartData = { ...data };
   }
 }

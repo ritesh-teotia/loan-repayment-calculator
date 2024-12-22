@@ -68,7 +68,7 @@
   </div>
 
   <div class="form-group">
-    <label for="extraEmiPercent">Extra EMI Percentage</label>
+    <label for="extraEmiPercent">Step up EMI Percentage</label>
     <div class="slider-container">
       <input
         type="range"
@@ -138,9 +138,10 @@
       name="payExtraEmi"
       class="form-control"
       [(ngModel)]="loanDetails.pay_extra_emi"
+      (ngModelChange)="onPayExtraEmiChange($event)"
     >
-      <option [value]="true">Yes</option>
-      <option [value]="false">No</option>
+      <option value="true">Yes</option>
+      <option value="false">No</option>
     </select>
   </div>
 

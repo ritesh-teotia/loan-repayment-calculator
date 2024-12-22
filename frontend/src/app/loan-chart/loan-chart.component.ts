@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { ChartOptions, ChartData } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import {
@@ -90,13 +90,23 @@ export class LoanChartComponent implements OnInit {
     }
   };
 
+  constructor(private cdr: ChangeDetectorRef) {}
+
   ngOnInit(): void {
     this.initializeCharts();
-    console.log("remainingMonths:", this.repaymentMonths)
-    console.log("remainingYears:", this.repaymentYears)
+  }
+
+  ngOnChanges(): void {
+    this.initializeCharts();
+    this.cdr.detectChanges();
   }
 
   initializeCharts(): void {
+
+    this.lineChartData = { labels: [], datasets: [] };
+    this.barChartData = { labels: [], datasets: [] };
+    this.pieChartData = { labels: [], datasets: [] };
+
     // Pie Chart: Proportion of Principal vs Interest
     const totalPaid = this.principalAmount + this.totalInterestPaid;
     this.pieChartData = {
