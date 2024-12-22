@@ -49,9 +49,10 @@ def calculate_loan_term(principal, annual_interest_rate, loan_tenure_years, extr
         for lump_sum in lump_sums:
             if lump_sum[0] == year:
                 extra_payment = lump_sum[1]
-                principal -= extra_payment
+                total_payment += extra_payment
                 total_principal_paid += extra_payment
-
+                principal -= extra_payment
+                
         # Increase EMI by extra_emi_percent from the previous year
         emi_with_extra *= 1 + extra_emi_percent / 100
 
