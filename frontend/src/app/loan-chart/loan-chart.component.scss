@@ -1,0 +1,23 @@
+.pie-chart {
+    width: 500px !important;  /* Adjust the width */
+    height: 500px !important; /* Adjust the height */
+    margin: 0 auto;          /* Center the chart if needed */
+  }
+
+  .loan-summary {
+    border: 1px solid #ddd;
+    padding: 16px;
+    margin-bottom: 16px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+  }
+  
+  .loan-summary h3 {
+    margin-top: 0;
+    color: #333;
+  }
+  
+  .loan-summary p {
+    margin: 4px 0;
+    font-size: 14px;
+  }

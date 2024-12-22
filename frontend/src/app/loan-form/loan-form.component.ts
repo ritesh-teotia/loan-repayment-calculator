@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 interface LumpSum {
@@ -10,14 +11,16 @@ interface LumpSum {
 @Component({
   selector: 'app-loan-form',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, HttpClientModule],
   templateUrl: './loan-form.component.html',
   styleUrls: ['./loan-form.component.scss']
 })
 
 export class LoanFormComponent {
+  @Output() formSubmit = new EventEmitter<any>();
+  
   loanDetails = {
-    principal: 500000,
+    principal: 5000000,
     rate: 8.5,
     time: 20,
     extra_emi_percent: 5,
@@ -25,6 +28,10 @@ export class LoanFormComponent {
     pay_extra_emi: false
   };
 
+  apiUrl = 'http://127.0.0.1:5000/calculate-loan';
+
+  constructor(private http: HttpClient) {}
+  
   get formattedPrincipal(): string {
     return new Intl.NumberFormat('en-IN', { maximumFractionDigits: 0 }).format(
       this.loanDetails.principal
@@ -52,11 +59,21 @@ export class LoanFormComponent {
       .filter(ls => ls.year !== null && ls.amount !== null)
       .map(ls => [ls.year, ls.amount]);
 
-    const loanDetailsToSubmit = {
-      ...this.loanDetails,
-      lump_sums: transformedLumpSums
-    };
+      const payload = {
+        ...this.loanDetails,
+        lump_sums: transformedLumpSums
+      };
+  
+    console.log('Payload:', payload);
 
-    console.log('Loan Details:', loanDetailsToSubmit);
+    this.http.post(this.apiUrl, payload).subscribe({
+      next: (response: any) => {
+        console.log('API Response:', response);
+        this.formSubmit.emit(response);
+      },
+      error: (error: any) => {
+        console.error('API Error:', error);
+      }
+    });
   }
 }
