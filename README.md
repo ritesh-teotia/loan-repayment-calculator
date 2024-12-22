@@ -151,6 +151,12 @@ Charts
 
 \- Python Flask API for loan repayment calculations
 
+
+### How to run locally
+1. Open terminal 
+2. Navigate to frontend directory ```cd frontend```
+3. Run command to start both frontend and backend ```npm start```
+
 ### License
 
 This software is proprietary and licensed. Unauthorized use, distribution, or modification of this program is strictly prohibited. Please contact the owner for licensing information.
