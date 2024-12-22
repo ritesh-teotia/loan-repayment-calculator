@@ -159,4 +159,6 @@ Charts
 
 ### License
 
-This software is proprietary and licensed. Unauthorized use, distribution, or modification of this program is strictly prohibited. Please contact the owner for licensing information.
+@Ritesh Teotia
+
+**Free Software, Hell Yeah!**
