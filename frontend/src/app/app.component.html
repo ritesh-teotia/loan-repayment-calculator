@@ -5,6 +5,7 @@
   <div class="right-panel" *ngIf="chartData">
     <app-loan-chart
       [loanData]="chartData.loan_data"
+      [normalEMI]="chartData.normal_emi"
       [totalMoneySaved]="chartData.total_money_saved"
       [totalInterestPaid]="chartData.total_interest_paid"
       [principalAmount]="chartData.total_principal_paid"

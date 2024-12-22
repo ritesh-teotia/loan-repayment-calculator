@@ -40,6 +40,7 @@ Chart.register(
 })
 export class LoanChartComponent implements OnInit {
   @Input() loanData: any;
+  @Input() normalEMI!: number;
   @Input() totalMoneySaved!: number;
   @Input() totalInterestPaid!: number;
   @Input() principalAmount!: number;
@@ -108,7 +109,6 @@ export class LoanChartComponent implements OnInit {
     this.pieChartData = { labels: [], datasets: [] };
 
     // Pie Chart: Proportion of Principal vs Interest
-    const totalPaid = this.principalAmount + this.totalInterestPaid;
     this.pieChartData = {
       labels: ['Principal Amount', 'Interest Paid'],
       datasets: [
@@ -119,14 +119,17 @@ export class LoanChartComponent implements OnInit {
         }
       ]
     };
-
+  
+  const totalNormalEmiPaid = this.normalEMI * 12 * this.originalTenure;
+  const totalPaid = this.principalAmount + this.totalInterestPaid;
+  
     // Bar Chart: Savings and Total Amount
     this.barChartData = {
       labels: ['Total Amount Paid (Normal EMI)', 'Optimized EMI Payments', 'Savings'],
       datasets: [
         {
           label: 'Amount (₹)',
-          data: [totalPaid, totalPaid - this.totalMoneySaved, this.totalMoneySaved],
+          data: [totalNormalEmiPaid, totalPaid, this.totalMoneySaved],
           backgroundColor: ['#42A5F5', '#66BB6A', '#FFCA28'], // Blue, green, yellow
           hoverBackgroundColor: ['#64B5F6', '#81C784', '#FFE082'], // Lighter hover colors
         }
@@ -135,7 +138,6 @@ export class LoanChartComponent implements OnInit {
 
     // Line Chart: Yearly Payments Over Time
     const years = this.loanData.map((entry: any) => entry.year);
-    const normalEMI = this.loanData.map((entry: any) => entry.normal_emi);
     const optimizedEMI = this.loanData.map((entry: any) => entry.extra_emi);
 
     this.lineChartData = {
@@ -143,7 +145,7 @@ export class LoanChartComponent implements OnInit {
       datasets: [
         {
           label: 'Normal EMI',
-          data: normalEMI,
+          data: Array(years.length).fill(this.normalEMI),
           borderColor: '#E57373', // Light red for the line
           backgroundColor: 'rgba(229, 115, 115, 0.3)', // Transparent fill
           pointBackgroundColor: '#D32F2F', // Red for points
